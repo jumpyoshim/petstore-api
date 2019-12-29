@@ -7,6 +7,9 @@ verify_ssl = true
 aws-sam-cli = "*"
 pytest = "*"
 moto = "*"
+pylint = "*"
+pep8 = "*"
+autopep8 = "*"
 
 [packages]
 
