@@ -4,6 +4,8 @@ Description: PetStoreAPI Sample
 Globals:
   Function:
     Runtime: python3.7
+    Layers:
+    - Ref: PetStoreAPILayer
     Environment:
       Variables:
         PETS_TABLE:
@@ -19,7 +21,7 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       Handler: create.handler
-      CodeUri: s3://petstore-api-jumpyoshim/cfceed795cf23fbf868f834b82bfdaed
+      CodeUri: s3://petstore-api-jumpyoshim/e81848b9a12b9edd5276f76b94b07a82
       Policies:
       - DynamoDBCrudPolicy:
           TableName:
@@ -33,6 +35,11 @@ Resources:
           Name: AWS::Include
           Parameters:
             Location: s3://petstore-api-jumpyoshim/c61f21a22601bb7ad75ec39ccf2e10a2
+  PetStoreAPILayer:
+    Type: AWS::Serverless::LayerVersion
+    Properties:
+      Description: Lambda Layer for PetStoreAPI
+      ContentUri: s3://petstore-api-jumpyoshim/de69e8e0cb3b3ecc0aa819f97d259a1d
   LambdaPermissionCreatePet:
     Type: AWS::Lambda::Permission
     Properties:

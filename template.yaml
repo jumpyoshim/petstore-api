@@ -4,6 +4,8 @@ Description: PetStoreAPI Sample
 Globals:
   Function:
     Runtime: python3.7
+    Layers:
+      - !Ref PetStoreAPILayer
     Environment:
       Variables:
         PETS_TABLE: !Ref PetsTable
@@ -31,6 +33,11 @@ Resources:
           Name: AWS::Include
           Parameters:
             Location: swagger.yaml
+  PetStoreAPILayer:
+    Type: AWS::Serverless::LayerVersion
+    Properties:
+      Description: Lambda Layer for PetStoreAPI
+      ContentUri: layer
   LambdaPermissionCreatePet:
     Type: AWS::Lambda::Permission
     Properties:
