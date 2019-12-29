@@ -1,4 +1,4 @@
-AWSTemplateFormatVersion: "2010-09-09"
+AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 Description: PetStoreAPI Sample
 Globals:
@@ -6,7 +6,8 @@ Globals:
     Runtime: python3.7
     Environment:
       Variables:
-        PETS_TABLE: !Ref PetsTable
+        PETS_TABLE:
+          Ref: PetsTable
 Resources:
   PetsTable:
     Type: AWS::Serverless::SimpleTable
@@ -18,12 +19,14 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       Handler: create.handler
-      CodeUri: src/handlers/pets
+      CodeUri: s3://petstore-api-jumpyoshim/cfceed795cf23fbf868f834b82bfdaed
       Policies:
-        - DynamoDBCrudPolicy:
-            TableName: !Ref PetsTable
+      - DynamoDBCrudPolicy:
+          TableName:
+            Ref: PetsTable
   CreatePetLogGroup:
     Type: AWS::Logs::LogGroup
     Properties:
-      LogGroupName: !Sub /aws/lambda/${CreatePet}
+      LogGroupName:
+        Fn::Sub: /aws/lambda/${CreatePet}
       RetentionInDays: 14
