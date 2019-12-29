@@ -1,6 +1,6 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
-Description: PetstoreAPI Sample
+Description: PetStoreAPI Sample
 Globals:
   Function:
     Runtime: python3.7
@@ -24,7 +24,7 @@ Resources:
       - DynamoDBCrudPolicy:
           TableName:
             Ref: PetsTable
-  PetstoreAPI:
+  PetStoreAPI:
     Type: AWS::Serverless::Api
     Properties:
       StageName: Prod
@@ -32,7 +32,7 @@ Resources:
         Fn::Transform:
           Name: AWS::Include
           Parameters:
-            Location: s3://petstore-api-jumpyoshim/bf40bbce5cf7e7fed036c3e85f2478c5
+            Location: s3://petstore-api-jumpyoshim/c61f21a22601bb7ad75ec39ccf2e10a2
   LambdaPermissionCreatePet:
     Type: AWS::Lambda::Permission
     Properties:
@@ -48,6 +48,6 @@ Resources:
       RetentionInDays: 14
 Outputs:
   ApiURL:
-    Description: API endpoint URL for Petstore API
+    Description: API endpoint URL for PetStoreAPI
     Value:
-      Fn::Sub: https://${PetstoreAPI}.execute-api.${AWS::Region}.amazonaws.com/Prod/
+      Fn::Sub: https://${PetStoreAPI}.execute-api.${AWS::Region}.amazonaws.com/Prod/
